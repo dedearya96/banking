@@ -38,7 +38,13 @@ class NasabahController extends Controller
                     'message' => 'Saldo anda tidak mencukupi!'
                 ]);
             } else {
-                $this->createTransactions($this->user->id, $request->users_receiver, $request->total);
+                $this->updateSaldoSender(auth()->id(), $request->total);
+                $this->updateSaldoReceiver($request->users_id_receiver, $request->total);
+                $this->createTransactions(auth()->id(), $request->users_receiver, $request->total);
+                return response()->json([
+                    'success'=>true,
+                    'message' => 'Transfer successfully!'
+                ]);
             }
         }
     }
