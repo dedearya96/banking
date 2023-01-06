@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\CustomerServicesController;
 use App\Http\Controllers\JwtController;
 use App\Http\Controllers\LogoutController;
+use App\Http\Controllers\NasabahController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -26,14 +28,14 @@ Route::group(['middleware' => 'jwt.verify'], function () {
     Route::get('auth/currentUser', [JwtController::class, 'getCurrentUsers']);
 
     Route::group(['midlleware' => 'customer_services'], function () {
-        Route::post('customer-services/transfer', []);
-        Route::get('customer-services/transaction', []);
-        Route::get('customer-services/all-transaction', []);
-        Route::get('customer-services/all-nasabah', []);
+        Route::post('customer-services/transfer', [CustomerServicesController::class, 'transferFromCustomer']);
+        Route::get('customer-services/transaction', [CustomerServicesController::class, 'getTransactionCustomer']);
+        Route::get('customer-services/all-transaction', [CustomerServicesController::class, 'getAllTransaction']);
+        Route::get('customer-services/all-nasabah', [CustomerServicesController::class, 'getAllNasabah']);
     });
 
     Route::group(['midlleware' => 'nasabah'], function () {
-        Route::post('nasabah/transfer', []);
-        Route::post('nasabah/transaction', []);
+        Route::post('nasabah/transfer', [NasabahController::class, 'transferFromNasabah']);
+        Route::post('nasabah/transaction', [NasabahController::class, 'getTransactionNasabah']);
     });
 });
