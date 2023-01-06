@@ -1,3 +1,5 @@
-1. create database db_banking
-2. import database db_banking.sql
-3. email & pass check database/seeders/UsersSeeder.php
+1. create file .env
+2. copy semua isi file .env.example ke file .env
+3. create database db_banking
+4. import database db_banking.sql
+5. email & pass check database/seeders/UsersSeeder.php
