@@ -34,6 +34,6 @@ Route::group(['middleware' => 'jwt.verify'], function () {
 
     Route::group(['midlleware' => 'nasabah'], function () {
         Route::post('nasabah/transfer', []);
-        Route::post('nasabah/transactions', []);
+        Route::post('nasabah/transaction', []);
     });
 });
