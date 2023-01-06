@@ -23,6 +23,7 @@ class CustomerServicesController extends Controller
             $this->user = JWTAuth::parseToken()->authenticate();
             return $next($request);
         });
+        $this->middleware('customer_services');
     }
 
     public function transferFromCustomer(TransferRequest $request)
@@ -42,7 +43,7 @@ class CustomerServicesController extends Controller
             } else {
                 $this->updateSaldoSender(auth()->id(), $request->total);
                 $this->updateSaldoReceiver($request->users_id_receiver, $request->total);
-                $this->createTransactions($this->user->id, $request->users_receiver, $request->total);
+                $this->createTransactions($this->user->id, $request->users_id_receiver, $request->total);
                 return response()->json([
                     'success' => true,
                     'message' => 'Transfer successfully!'

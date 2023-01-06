@@ -26,8 +26,8 @@ class TransferRequest extends FormRequest
     public function rules()
     {
         return [
-            'users_id_receiver' => 'required',
-            'total' => 'required'
+            'users_id_receiver' => 'required|exists:mysql.users,id',
+            'total' => 'required|integer|min:1000'
         ];
     }
 

@@ -8,7 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Transaction extends Model
 {
     use HasFactory;
-    protected $fillable = ['users_id_sender, users_id_receiver', 'total'];
+    protected $connection = 'mysql';
+
+    protected $fillable = ['users_id_sender', 'users_id_receiver', 'total'];
 
     public function users_sender()
     {

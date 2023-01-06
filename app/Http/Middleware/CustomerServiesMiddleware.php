@@ -20,7 +20,7 @@ class CustomerServiesMiddleware
         $user = JWTAuth::user();
         if ($user->role != 'customer_services') {
             return response()->json([
-                'status' => 'You need nasabah action!'
+                'status' => 'You need customer services action!'
             ]);
         }
         return $next($request);

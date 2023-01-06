@@ -36,6 +36,6 @@ Route::group(['middleware' => 'jwt.verify'], function () {
 
     Route::group(['midlleware' => 'nasabah'], function () {
         Route::post('nasabah/transfer', [NasabahController::class, 'transferFromNasabah']);
-        Route::post('nasabah/transaction', [NasabahController::class, 'getTransactionNasabah']);
+        Route::get('nasabah/transaction', [NasabahController::class, 'getTransactionNasabah']);
     });
 });

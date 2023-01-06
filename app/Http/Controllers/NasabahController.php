@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\TransferRequest;
 use App\Http\Resources\TransactionResource;
+use App\Http\Resources\UsersResource;
 use App\Models\Transaction;
 use App\Traits\CreateTransactions;
 use App\Traits\UpdateSaldoReceiver;
@@ -21,6 +22,7 @@ class NasabahController extends Controller
             $this->user = JWTAuth::parseToken()->authenticate();
             return $next($request);
         });
+        $this->middleware('nasabah');
     }
 
     public function transferFromNasabah(TransferRequest $request)
@@ -40,10 +42,10 @@ class NasabahController extends Controller
             } else {
                 $this->updateSaldoSender(auth()->id(), $request->total);
                 $this->updateSaldoReceiver($request->users_id_receiver, $request->total);
-                $this->createTransactions(auth()->id(), $request->users_receiver, $request->total);
+                $this->createTransactions(auth()->id(), $request->users_id_receiver, $request->total);
                 return response()->json([
-                    'success'=>true,
-                    'message' => 'Transfer successfully!'
+                    'success' => true,
+                    'message' => 'Transfer successfully!',
                 ]);
             }
         }

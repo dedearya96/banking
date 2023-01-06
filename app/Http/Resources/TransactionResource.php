@@ -16,9 +16,9 @@ class TransactionResource extends JsonResource
     {
         return [
             'id_tran' => $this->id,
-            'users_id_sender' => $this->users_id_sender,
-            'users_id_receiver' => $this->users_id_receiver,
-            'total' => $this->total,
+            'sender' => new TitleUsersResource($this->users_sender),
+            'receiver' => new TitleUsersResource($this->users_receiver),
+            'total' => number_format($this->total),
             'time' => $this->created_at,
         ];
     }

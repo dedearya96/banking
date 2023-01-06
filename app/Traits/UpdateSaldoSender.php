@@ -8,8 +8,9 @@ trait UpdateSaldoSender
 {
     public function updateSaldoSender($users_id_sender, $total)
     {
-        return User::find($users_id_sender)->update([
-            'saldo' => ''
+        $users = User::find($users_id_sender);
+        return $users->update([
+            'saldo' => $users->saldo - $total
         ]);
     }
 }
