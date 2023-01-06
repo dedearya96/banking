@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\TransferRequest;
 use App\Http\Resources\TransactionResource;
 use App\Http\Resources\UsersResource;
 use App\Models\Transaction;
@@ -15,8 +16,9 @@ class CustomerServicesController extends Controller
         
     }
     
-    public function transferFromCustomer()
+    public function transferFromCustomer(TransferRequest $request)
     {
+        
     }
 
     public function getTransactionCustomer()
