@@ -8,12 +8,14 @@ use App\Http\Resources\UsersResource;
 use App\Models\Transaction;
 use App\Models\User;
 use App\Traits\CreateTransactions;
+use App\Traits\UpdateSaldoReceiver;
+use App\Traits\UpdateSaldoSender;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
 class CustomerServicesController extends Controller
 {
-    use CreateTransactions;
+    use CreateTransactions, UpdateSaldoSender, UpdateSaldoReceiver;
     protected $user;
     public function __construct()
     {
@@ -25,7 +27,22 @@ class CustomerServicesController extends Controller
 
     public function transferFromCustomer(TransferRequest $request)
     {
-        $this->createTransactions($this->user->id, $request->users_receiver, $request->total);
+        if (auth()->id() == $request->users_id_receiver) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Transfer Gagal!'
+            ]);
+        } else {
+            $mySaldo = auth()->user()->saldo;
+            if ($mySaldo <= $request->total) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Saldo anda tidak mencukupi!'
+                ]);
+            } else {
+                $this->createTransactions($this->user->id, $request->users_receiver, $request->total);
+            }
+        }
     }
 
     public function getTransactionCustomer()
